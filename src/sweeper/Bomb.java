@@ -50,4 +50,9 @@ class Bomb
                 bombMap.set(around, bombMap.get(around).getNextNumberBox());
     }
 
+    int getTotalBombs()
+    {
+        return totalBomb;
+    }
+
 }
