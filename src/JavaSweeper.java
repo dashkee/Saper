@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.font.NumericShaper;
 
 import sweeper.Box;
@@ -46,7 +48,12 @@ public class JavaSweeper extends JFrame
             }
         };
 
-
+panel.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mousePressed(MouseEvent e) {
+        super.mousePressed(e);
+    }
+});
 
         panel.setPreferredSize(new Dimension(
                 Ranges.getSize().x * IMAGE_SIZE, Ranges.getSize().y*IMAGE_SIZE));
