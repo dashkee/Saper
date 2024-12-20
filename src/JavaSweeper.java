@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.NumericShaper;
-
 import sweeper.Box;
 import sweeper.Coord;
 import sweeper.Game;
@@ -12,19 +11,18 @@ import sweeper.Ranges;
 public class JavaSweeper extends JFrame
 {
     private Game game;
-
     private JPanel panel;
     private JLabel label;
     private final int COLS = 9;
     private final int ROWS = 9;
     private final int BOMBS = 10;
     private final int IMAGE_SIZE = 50;
-
+/// является точкой входа программы на языке Java
     public static void main(String[] args)
     {
         new JavaSweeper();
     }
-
+/// конструктор класса
     private JavaSweeper()
     {
         game = new Game (COLS, ROWS, BOMBS);
@@ -35,13 +33,13 @@ public class JavaSweeper extends JFrame
         initPanel();
         initFrame();
     }
-
+/// отвечает за создание и добавление метки (JLabel) в интерфейс приложения
     private  void initLabel ()
     {
         label = new JLabel("Welcome!");
         add (label, BorderLayout.SOUTH);
     }
-
+///создает и настраивает панель для рисования изображения
     private void initPanel()
     {
         panel = new JPanel()
@@ -55,7 +53,7 @@ public class JavaSweeper extends JFrame
                 }
             }
         };
-
+/// добавление обработки кликов мыши
     panel.addMouseListener(new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent e) {
@@ -72,12 +70,11 @@ public class JavaSweeper extends JFrame
             panel.repaint();
         }
     });
-
         panel.setPreferredSize(new Dimension(
                 Ranges.getSize().x * IMAGE_SIZE, Ranges.getSize().y*IMAGE_SIZE));
         add(panel);
     }
-
+/// в соответствии со статусом игры, выводит сообщения
     private String getMessage()
     {
         switch (game.getState())
@@ -88,7 +85,7 @@ public class JavaSweeper extends JFrame
             default: return "Welcome!";
         }
     }
-
+/// отвечает за инициализацию главного окна приложения (фрейма)
     private void initFrame()
     {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -99,13 +96,13 @@ public class JavaSweeper extends JFrame
         pack();
         setLocationRelativeTo(null);
     }
-
+/// загружает изображения для всех возможных состояний клеток (представленных как Box)
     private void setImages ()
     {
         for(Box box: Box.values())
             box.image = getImage(box.name().toLowerCase());
     }
-
+/// отвечает за загрузку изображения по указанному имени файла
     private  Image getImage (String name)
     {
         String filename = "img/" + name + ".png";

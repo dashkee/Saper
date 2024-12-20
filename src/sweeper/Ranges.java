@@ -8,7 +8,7 @@ public class Ranges
     private static Coord size;
     private static ArrayList<Coord> allCoords;
     private static Random random = new Random();
-
+///устанавливает размеры для структуры данных и генерирует список всех возможных координат в пределах этих размеров
     public static void setSize (Coord _size)
     {
         size = _size;
@@ -17,29 +17,29 @@ public class Ranges
             for(int x = 0; x < size.x; x++)
                 allCoords.add(new Coord(x,y));
     }
-
+/// возвращает текущий размер сетки
     public static Coord getSize()
     {
         return size;
     }
-
+/// возвращает список всех возможных координат в пределах установленной сетки
     public static ArrayList<Coord> getAllCoords()
     {
         return allCoords;
     }
-
+/// проверяет, находятся ли координаты coord в пределах установленного размера сетки
     static boolean inRange (Coord coord)
     {
         return coord.x >= 0 && coord.x < size.x &&
                 coord.y >= 0 && coord.y < size.y;
     }
-
+/// генерирует случайную координату в пределах установленной сетки
     static Coord getRandomCoord ()
     {
         return  new Coord(random.nextInt(size.x),
                           random.nextInt(size.y));
     }
-
+/// возвращает список всех координат, окружающих указанную координату coord
     static ArrayList<Coord> getCoordsAround(Coord coord)
     {
         Coord around;
@@ -51,5 +51,4 @@ public class Ranges
                         list.add (around);
         return list;
     }
-
 }

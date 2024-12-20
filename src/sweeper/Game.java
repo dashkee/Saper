@@ -5,25 +5,26 @@ public class Game
     private Bomb bomb;
     private Flag flag;
     private  GameState state;
+    /// возвращает статус игры
     public GameState getState()
     {
         return state;
     }
-
+/// конструктор класса
     public  Game (int cols, int rows, int bombs)
     {
         Ranges.setSize(new Coord(cols, rows));
         bomb = new Bomb(bombs);
         flag = new Flag();
     }
-
+/// подготавливает игру к началу
     public void start()
     {
         bomb.start();
         flag.start();
         state = GameState.PLAYED;
     }
-
+///возвращает состояние клетки по указанным координатам
     public  Box getBox (Coord coord)
     {
         if(flag.get(coord) == Box.OPENED)
@@ -31,21 +32,21 @@ public class Game
         else
             return flag.get(coord);
     }
-
+/// нажатие левой кнопки мыши
     public void pressLeftButton(Coord coord)
     {
         if (gameOver()) return;
         openBox(coord);
         checkWinner();
     }
-
+/// проверка победы
     private void checkWinner()
     {
         if (state == GameState.PLAYED)
             if(flag.getCountOfCloseBoxes() == bomb.getTotalBombs())
                 state = GameState.WINNER;
     }
-
+/// открытие ячейки
     private  void openBox(Coord coord)
     {
         switch (flag.get(coord))
@@ -61,7 +62,7 @@ public class Game
                 }
         }
     }
-
+///открывает закрытые клетки вокруг числа, если все окружающие клетки, которые должны содержать бомбы, уже помечены как такие
     private void setOpenedToClosedBoxesAroundNumber(Coord coord)
     {
         if(bomb.get(coord) != Box.BOMB)
@@ -70,7 +71,7 @@ public class Game
                     if (flag.get(around) == Box.CLOSED)
                         openBox(around);
     }
-
+/// обработка открытия бомбы
     private void openBomb(Coord bombed)
     {
         state = GameState.BOMBED;
@@ -81,20 +82,20 @@ public class Game
             else
                 flag.setNoBombToFlagedSafeBox(coord);
     }
-
+/// рекурсивное открытие ячеек около пустой
     private  void openBoxesAround (Coord coord)
     {
         flag.setOpenedToBox(coord);
         for (Coord around : Ranges.getCoordsAround(coord))
             openBox(around);
      }
-
+/// нажатие правой кнопки мыши
     public void pressRightButton(Coord coord)
     {
         if (gameOver()) return;
         flag.toggleFlagedBox(coord);
     }
-
+///  проверка на проигрыш
     private boolean gameOver()
     {
         if(state == GameState.PLAYED)
@@ -102,5 +103,4 @@ public class Game
         start();
         return true;
     }
-
 }

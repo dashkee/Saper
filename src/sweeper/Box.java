@@ -19,12 +19,12 @@ public enum Box
     NOBOMB;
 
     public Object image;
-
+/// возвращает следующий элемент перечисления Box
     Box getNextNumberBox()
     {
         return  Box.values() [this.ordinal() + 1];
     }
-
+/// возвращает порядковый номер текущего элемента перечисления
     int getNumber ()
     {
         return this.ordinal();
